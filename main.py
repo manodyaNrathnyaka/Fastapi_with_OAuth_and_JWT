@@ -1,22 +1,30 @@
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
-
+from pydantic import BaseModel, Field,HttpUrl
+from typing import Set,List
 class Profile(BaseModel):
     username: str
     age: int
     email: str
     
-    
+class Image(BaseModel):
+     url:HttpUrl
+     name:str   
 class Product(BaseModel):
     name:str
     price:int=Field(title="price f the product", product="This would be a price of the item being added",gt=0)
     discount:int
     discounted_price:int 
+    tags:Set[str]=[]
+    image:List[Image]
     
     
 class User(BaseModel):
     username:str
     email:str
+    
+     
+    
+
 
 app=FastAPI() #creating instance of FastAPI class
 
